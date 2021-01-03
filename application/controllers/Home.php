@@ -51,10 +51,58 @@ class Home extends CI_Controller {
         $train = $this->Mhome->get_train();
         // print_r($train);
         // print("<pre>".print_r($train,true)."</pre>");
-        // foreach($train as $data){
-        //     foreach($data->trainitem as $dtrain){
-        //         echo $dtrain->id_bahan;
-        //     }
-        // }
+        $totalkbm = 0;
+        foreach($train as $data){
+            $kbm = 0;
+            foreach($data->trainitem as $dtrain){
+                if($dtrain->id_bahan!=19){
+                    $kbm = $kbm+1;
+                }
+            }
+            $totalkbm = $totalkbm+$kbm;
+        }
+        
+        foreach($train as $data){
+            $kbm = 0;
+            foreach($data->trainitem as $dtrain){
+                if($dtrain->id_bahan!=19){
+                    $kbm = $kbm+1;
+                }
+            }
+            $pbm = $kbm/$totalkbm;
+            echo $pbm;
+            print("<br>");
+        }
+    }
+
+    public function hitung(){
+        $bawang = 1;
+        $tomat = 3;
+        $cabe = 2;
+        $daging = 14;
+        $arr = [
+            0 => 1,
+            1 => 3,
+            2 => 2,
+            3 => 14
+        ];
+        $train = $this->Mhome->get_train();
+        foreach($train as $data){
+            $total = 0;
+            foreach($data->trainitem as $dtrain){
+                $jmlbahan = 0;
+                $jmlrow = 4;
+                foreach($arr as $darr){
+                    if($dtrain->id_bahan==$darr){
+                        $jmlbahan = $jmlbahan+1;
+                    }
+                }
+                $hitung = $jmlbahan/$jmlrow;
+                $total = $total+$hitung;
+                echo $hitung.', ';
+            }
+            echo '='.$total;
+            print("<br>");
+        }
     }
 }

@@ -13,7 +13,7 @@
 				<div class="form-group">
 					<label>Bahan 1</label>
 					<select name="id_bahan[]" class="form-control">
-                        <option value="id_bahan"></option>
+                        <option value="19">( Kosong )</option>
                         <?php 
                             foreach($bahan as $data){
                         ?>
@@ -24,7 +24,7 @@
                 <div class="form-group">
 					<label>Bahan 2</label>
 					<select name="id_bahan[]" class="form-control">
-                        <option value="id_bahan"></option>
+                        <option value="19">( Kosong )</option>
                         <?php 
                             foreach($bahan as $data){
                         ?>
@@ -35,7 +35,7 @@
                 <div class="form-group">
 					<label>Bahan 3</label>
 					<select name="id_bahan[]" class="form-control">
-                        <option value="id_bahan"></option>
+                        <option value="19">( Kosong )</option>
                         <?php 
                             foreach($bahan as $data){
                         ?>
@@ -46,7 +46,7 @@
                 <div class="form-group">
 					<label>Bahan 4</label>
 					<select name="id_bahan[]" class="form-control">
-                        <option value="id_bahan"></option>
+                        <option value="19">( Kosong )</option>
                         <?php 
                             foreach($bahan as $data){
                         ?>
@@ -57,7 +57,7 @@
                 <div class="form-group">
 					<label>Bahan 5</label>
 					<select name="id_bahan[]" class="form-control">
-                        <option value="id_bahan"></option>
+                        <option value="19">( Kosong )</option>
                         <?php 
                             foreach($bahan as $data){
                         ?>
@@ -68,7 +68,7 @@
                 <div class="form-group">
 					<label>Bahan 6</label>
 					<select name="id_bahan[]" class="form-control">
-                        <option value="id_bahan"></option>
+                        <option value="19">( Kosong )</option>
                         <?php 
                             foreach($bahan as $data){
                         ?>
@@ -79,7 +79,6 @@
                 <div class="form-group">
 					<label>Hasil</label>
 					<select name="id_menu" class="form-control">
-                        <option value="id_menu"></option>
                         <?php 
                             foreach($menu as $data){
                         ?>
