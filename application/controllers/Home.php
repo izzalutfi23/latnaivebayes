@@ -47,6 +47,63 @@ class Home extends CI_Controller {
         redirect('home/training');
     }
 
+    public function deltrain($id){
+        $this->Mhome->deltrain($id);
+        redirect('home/training');
+    }
+
+    public function uji(){
+        $bahan = $this->Mhome->get_bahan()->result();
+        $data = array(
+            'title' => 'Data Uji',
+            'bahan' => $bahan
+        );
+        $this->load->view('_header', $data);
+        $this->load->view('page/uji');
+        $this->load->view('_footer');
+    }
+
+    public function postuji(){
+        $bahan = $this->input->post('id_bahan');
+        $train = $this->Mhome->get_train();
+        foreach($train as $data){
+            $total = 0;
+            foreach($data->trainitem as $dtrain){
+                $jmlbahan = 0;
+                $jmlrow = 0;
+                foreach($bahan as $darr){
+                    $jmlrow = $jmlrow+1;
+                    if($dtrain->id_bahan==$darr&&$dtrain->id_bahan!=19){
+                        $jmlbahan = $jmlbahan+1;
+                    }
+                }
+                $hitung = $jmlbahan/$jmlrow;
+                $total = $total+$hitung;
+            }
+            $ttotal = 1-$total;
+            $data->hasil = $ttotal;
+        }
+        // foreach($train as $dt){
+        //     print("<pre>".print_r($dt,true)."</pre>");
+        // }
+        $hasil = array();
+        foreach($train as $key => $row)
+        {
+            $hasil[$key] = $row->hasil;
+        }
+        array_multisort($hasil, SORT_ASC, $train);
+
+        $limit = array_slice($train, 0, 3);
+
+        $data = array(
+            'title' => 'Post Uji',
+            'uji' => $limit
+        );
+        $this->load->view('_header', $data);
+        $this->load->view('page/hasil');
+        $this->load->view('_footer');
+    }
+
     public function train(){
         $train = $this->Mhome->get_train();
         // print_r($train);
@@ -104,5 +161,72 @@ class Home extends CI_Controller {
             echo '='.$total;
             print("<br>");
         }
+    }
+    
+
+    public function bahan(){
+        $bahan = $this->Mhome->get_bahan()->result();
+        $data = array(
+            'title' => 'Bahan Masakan',
+            'bahan' => $bahan
+        );
+        $this->load->view('_header', $data);
+        $this->load->view('page/bahan');
+        $this->load->view('_footer');
+    }
+
+    public function addbahan(){
+        $data = array(
+            'title' => 'Tambah Bahan Masakan'
+        );
+        $this->load->view('_header', $data);
+        $this->load->view('page/addbahan');
+        $this->load->view('_footer');
+    }
+
+    public function postbahan(){
+        $data = [
+            'bahan' => $this->input->post('bahan')
+        ];
+        $this->Mhome->insertbahan($data);
+        redirect('home/bahan');
+    }
+
+    public function delbahan($id){
+        $this->Mhome->delbahan($id);
+        redirect('home/bahan');
+    }
+
+    public function menu(){
+        $menu = $this->Mhome->get_menu()->result();
+        $data = array(
+            'title' => 'Menu Masakan',
+            'menu' => $menu
+        );
+        $this->load->view('_header', $data);
+        $this->load->view('page/menu');
+        $this->load->view('_footer');
+    }
+
+    public function addmenu(){
+        $data = array(
+            'title' => 'Tambah Menu Masakan'
+        );
+        $this->load->view('_header', $data);
+        $this->load->view('page/addmenu');
+        $this->load->view('_footer');
+    }
+
+    public function postmenu(){
+        $data = [
+            'menu' => $this->input->post('menu')
+        ];
+        $this->Mhome->insertmenu($data);
+        redirect('home/menu');
+    }
+
+    public function delmenu($id){
+        $this->Mhome->delmenu($id);
+        redirect('home/menu');
     }
 }

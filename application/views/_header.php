@@ -30,7 +30,13 @@
 					<a class="nav-link" href="<?=base_url('home/training')?>">Data Training</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#">Data Uji</a>
+					<a class="nav-link" href="<?=base_url('home/uji')?>">Data Uji</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="<?=base_url('home/bahan')?>">Bahan</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="<?=base_url('home/menu')?>">Menu</a>
 				</li>
 			</ul>
 		</div>

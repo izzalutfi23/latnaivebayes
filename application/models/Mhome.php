@@ -41,4 +41,28 @@ class Mhome extends CI_Model {
         return $train;
     }
 
+    public function deltrain($id){
+        $this->db->where('id_train', $id);
+        $this->db->delete('train');
+    }
+
+    public function insertbahan($data){
+        $this->db->insert('bahan', $data);
+    }
+
+    public function delbahan($id){
+        $this->db->where('id_bahan', $id);
+        $this->db->delete('bahan');
+    }
+
+    public function insertmenu($data){
+        $this->db->insert('menu', $data);
+    }
+
+    public function delmenu($id){
+        $this->db->where('id_menu', $id);
+        $this->db->delete('menu');
+    }
+
+
 }
