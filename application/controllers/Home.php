@@ -8,6 +8,7 @@ class Home extends CI_Controller {
         $this->load->model('Mhome');
     }
 
+    // Halaman Home
 	public function index()
 	{
         $bahan = $this->db->get('bahan');
@@ -24,6 +25,7 @@ class Home extends CI_Controller {
         $this->load->view('_footer');
     }
     
+    // Halaman Data Training
     public function training(){
         $train = $this->Mhome->get_train();
         $data = array(
@@ -35,6 +37,7 @@ class Home extends CI_Controller {
         $this->load->view('_footer');
     }
 
+    // Halaman Tambah Data Training
     public function adddatatraining(){
         $bahan = $this->Mhome->get_bahan()->result();
         $data = array(
@@ -46,6 +49,7 @@ class Home extends CI_Controller {
         $this->load->view('_footer');
     }
 
+    // Method Proses Tambah Data Training
     public function create(){
         $menu = $this->input->post('menu');
         $bahan = $this->input->post('id_bahan');
@@ -53,6 +57,7 @@ class Home extends CI_Controller {
         redirect('home/training');
     }
 
+    // Halaman Edit Data Training
     public function edittrain($id){
         $train = $this->Mhome->get_trainbyid($id);
         $bahan = $this->Mhome->get_bahan()->result();
@@ -66,6 +71,7 @@ class Home extends CI_Controller {
         $this->load->view('_footer');
     }
 
+    // Method Proses Edit Data Training
     public function editaction(){
         $menu = $this->input->post('menu');
         $idtrain = $this->input->post('id');
@@ -74,11 +80,13 @@ class Home extends CI_Controller {
         redirect('home/training');
     }
 
+    // Method Hapus Data Training
     public function deltrain($id){
         $this->Mhome->deltrain($id);
         redirect('home/training');
     }
 
+    // Halaman Data Uji
     public function uji(){
         $bahan = $this->Mhome->get_bahan()->result();
         $data = array(
@@ -90,32 +98,38 @@ class Home extends CI_Controller {
         $this->load->view('_footer');
     }
 
+    // Method Untuk Menghitung Data Uji Menggunakan Teorema Naive Bayes
     public function postuji(){
+        // Mendapatkan bahan masakan dari inputan
         $bahan = $this->input->post('id_bahan');
+        // Mengambil data training dari database
         $train = $this->Mhome->get_train();
-        foreach($train as $data){
+        // Melakukan perulangan data training
+        foreach($train as $data){ 
             $total = 0;
+            // Melakukan perulangan bahan masakan dari data train
             foreach($data->trainitem as $dtrain){
                 $jmlbahan = 0;
                 $jmlrow = 0;
                 foreach($bahan as $darr){
+                    // Menghitung jumlah bahan yang muncul dari data training
                     $jmlrow = $jmlrow+1;
                     if($dtrain->id_bahan==$darr&&$dtrain->id_bahan!=19){
+                        // Menghitung jumlah data bahan inputan yang sama dengan data bahan pada data training
                         $jmlbahan = $jmlbahan+1;
                     }
                 }
+                // Menghitung total
                 $hitung = $jmlbahan/$jmlrow;
                 $total = $total+$hitung;
-                // echo $jmlbahan.'/'.$jmlrow.'='.$hitung.', ';
             }
-            // print("<br>");
+            // Raw input - total hitungan
             $ttotal = 1-$total;
             $data->hasil = $ttotal;
         }
-        // foreach($train as $dt){
-        //     print("<pre>".print_r($dt,true)."</pre>");
-        // }
 
+
+        // Mengurutkan hasil dari nilai yang paling kecil
         $hasil = array();
         foreach($train as $key => $row)
         {
@@ -123,6 +137,7 @@ class Home extends CI_Controller {
         }
         array_multisort($hasil, SORT_ASC, $train);
 
+        // Membatasi nilai yang muncul max 3
         $limit = array_slice($train, 0, 3);
 
         $data = array(
@@ -134,66 +149,7 @@ class Home extends CI_Controller {
         $this->load->view('_footer');
     }
 
-    public function train(){
-        $train = $this->Mhome->get_train();
-        // print_r($train);
-        // print("<pre>".print_r($train,true)."</pre>");
-        $totalkbm = 0;
-        foreach($train as $data){
-            $kbm = 0;
-            foreach($data->trainitem as $dtrain){
-                if($dtrain->id_bahan!=19){
-                    $kbm = $kbm+1;
-                }
-            }
-            $totalkbm = $totalkbm+$kbm;
-        }
-        
-        foreach($train as $data){
-            $kbm = 0;
-            foreach($data->trainitem as $dtrain){
-                if($dtrain->id_bahan!=19){
-                    $kbm = $kbm+1;
-                }
-            }
-            $pbm = $kbm/$totalkbm;
-            echo $pbm;
-            print("<br>");
-        }
-    }
-
-    public function hitung(){
-        $bawang = 1;
-        $tomat = 3;
-        $cabe = 2;
-        $daging = 14;
-        $arr = [
-            0 => 1,
-            1 => 3,
-            2 => 2,
-            3 => 14
-        ];
-        $train = $this->Mhome->get_train();
-        foreach($train as $data){
-            $total = 0;
-            foreach($data->trainitem as $dtrain){
-                $jmlbahan = 0;
-                $jmlrow = 4;
-                foreach($arr as $darr){
-                    if($dtrain->id_bahan==$darr){
-                        $jmlbahan = $jmlbahan+1;
-                    }
-                }
-                $hitung = $jmlbahan/$jmlrow;
-                $total = $total+$hitung;
-                echo $hitung.', ';
-            }
-            echo '='.$total;
-            print("<br>");
-        }
-    }
-    
-
+    // Halaman Bahan
     public function bahan(){
         $bahan = $this->Mhome->get_bahan()->result();
         $data = array(
@@ -205,6 +161,7 @@ class Home extends CI_Controller {
         $this->load->view('_footer');
     }
 
+    // Halaman Form Tambah Bahan
     public function addbahan(){
         $data = array(
             'title' => 'Tambah Bahan Masakan'
@@ -214,6 +171,7 @@ class Home extends CI_Controller {
         $this->load->view('_footer');
     }
 
+    // Method untuk menambahkan bahan ke dalam database
     public function postbahan(){
         $data = [
             'bahan' => $this->input->post('bahan')
