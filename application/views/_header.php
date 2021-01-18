@@ -2,43 +2,120 @@
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-		integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-	<!-- Datatable -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
-	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
+	<!-- Required meta tags -->
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 	<title><?=$title?></title>
+	<!-- plugins:css -->
+	<link rel="stylesheet" href="<?=base_url()?>assets/vendors/mdi/css/materialdesignicons.min.css">
+	<link rel="stylesheet" href="<?=base_url()?>assets/vendors/flag-icon-css/css/flag-icon.min.css">
+	<link rel="stylesheet" href="<?=base_url()?>assets/vendors/css/vendor.bundle.base.css">
+	<!-- endinject -->
+	<!-- Plugin css for this page -->
+	<link rel="stylesheet" href="<?=base_url()?>assets/vendors/jquery-bar-rating/css-stars.css" />
+	<link rel="stylesheet" href="<?=base_url()?>assets/vendors/font-awesome/css/font-awesome.min.css" />
+	<!-- End plugin css for this page -->
+	<!-- inject:css -->
+	<!-- endinject -->
+	<!-- Layout styles -->
+	<link rel="stylesheet" href="<?=base_url()?>assets/css/demo_1/style.css" />
+	<!-- End layout styles -->
+	<link rel="shortcut icon" href="<?=base_url()?>assets/images/favicon.png" />
+	<!-- Datatable -->
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css" />
 </head>
 
 <body>
-
-	<!-- Navbar -->
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<a class="navbar-brand" href="<?=base_url('home')?>">Naive Bayes</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-			aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<div class="collapse navbar-collapse" id="navbarNav">
-			<ul class="navbar-nav">
-				<li class="nav-item">
-					<a class="nav-link" href="<?=base_url('home')?>">Home</a>
+	<div class="container-scroller">
+		<!-- partial:partials/_sidebar.html -->
+		<nav class="sidebar sidebar-offcanvas" id="sidebar">
+			<ul class="nav">
+				<li class="nav-item nav-profile border-bottom">
+					<a href="#" class="nav-link flex-column">
+						<div class="nav-profile-image">
+							<img src="<?=base_url()?>assets/images/dinus.jpg" alt="profile" />
+							<!--change to offline or busy as needed-->
+						</div>
+						<div class="nav-profile-text d-flex ml-0 mb-3 flex-column">
+							<span class="font-weight-semibold mb-1 mt-2 text-center">UDINUS</span>
+						</div>
+					</a>
+				</li>
+				<li class="pt-2 pb-1">
+					<span class="nav-item-head">Naive Bayes</span>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="<?=base_url('home/training')?>">Data Training</a>
+					<a class="nav-link" href="<?=base_url('/home/index')?>">
+						<i class="mdi mdi-compass-outline menu-icon"></i>
+						<span class="menu-title">Dashboard</span>
+					</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="<?=base_url('home/uji')?>">Data Uji</a>
+					<a class="nav-link" href="<?=base_url('home/training')?>">
+						<i class="mdi mdi-database menu-icon"></i>
+						<span class="menu-title">Data Training</span>
+					</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="<?=base_url('home/bahan')?>">Bahan</a>
+					<a class="nav-link" href="<?=base_url('home/uji')?>">
+						<i class="mdi mdi-format-list-bulleted menu-icon"></i>
+						<span class="menu-title">Data Uji</span>
+					</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="<?=base_url('home/menu')?>">Menu</a>
+					<a class="nav-link" href="<?=base_url('home/bahan')?>">
+						<i class="mdi mdi-chart-bar menu-icon"></i>
+						<span class="menu-title">Bahan Masakan</span>
+					</a>
 				</li>
 			</ul>
-		</div>
-	</nav>
-	<!-- End Navbar -->
+		</nav>
+		<!-- partial -->
+		<div class="container-fluid page-body-wrapper">
+			<!-- partial:partials/_settings-panel.html -->
+			<div id="settings-trigger"><i class="mdi mdi-settings"></i></div>
+			<div id="theme-settings" class="settings-panel">
+				<i class="settings-close mdi mdi-close"></i>
+				<p class="settings-heading">SIDEBAR SKINS</p>
+				<div class="sidebar-bg-options selected" id="sidebar-default-theme">
+					<div class="img-ss rounded-circle bg-light border mr-3"></div>Default
+				</div>
+				<div class="sidebar-bg-options" id="sidebar-dark-theme">
+					<div class="img-ss rounded-circle bg-dark border mr-3"></div>Dark
+				</div>
+				<p class="settings-heading mt-2">HEADER SKINS</p>
+				<div class="color-tiles mx-0 px-4">
+					<div class="tiles default primary"></div>
+					<div class="tiles success"></div>
+					<div class="tiles warning"></div>
+					<div class="tiles danger"></div>
+					<div class="tiles info"></div>
+					<div class="tiles dark"></div>
+					<div class="tiles light"></div>
+				</div>
+			</div>
+			<!-- partial -->
+			<!-- partial:partials/_navbar.html -->
+			<nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+				<div class="navbar-menu-wrapper d-flex align-items-stretch">
+					<button class="navbar-toggler navbar-toggler align-self-center" type="button"
+						data-toggle="minimize">
+						<span class="mdi mdi-chevron-double-left"></span>
+					</button>
+					<div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+						<a class="navbar-brand brand-logo-mini" href="<?=base_url('/')?>"><img src="<?=base_url()?>assets/images/logo-mini.svg"
+								alt="logo" /></a>
+					</div>
+					<ul class="navbar-nav navbar-nav-right">
+						<li class="nav-item nav-logout d-none d-lg-block">
+							<a class="nav-link" href="<?=base_url('/')?>">
+								<i class="mdi mdi-home-circle"></i>
+							</a>
+						</li>
+					</ul>
+					<button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
+						data-toggle="offcanvas">
+						<span class="mdi mdi-menu"></span>
+					</button>
+				</div>
+			</nav>

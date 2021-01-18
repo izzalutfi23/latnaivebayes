@@ -10,7 +10,15 @@ class Home extends CI_Controller {
 
 	public function index()
 	{
-        $data['title'] = 'Home';
+        $bahan = $this->db->get('bahan');
+        $training = $this->db->get('train');
+        $jmlbahan = $bahan->num_rows();
+        $jmltrain = $training->num_rows();
+        $data = array(
+            'title' => 'Home',
+            'bahan' => $jmlbahan,
+            'train' => $jmltrain
+        );
         $this->load->view('_header', $data);
         $this->load->view('page/home');
         $this->load->view('_footer');
@@ -29,11 +37,9 @@ class Home extends CI_Controller {
 
     public function adddatatraining(){
         $bahan = $this->Mhome->get_bahan()->result();
-        $menu = $this->Mhome->get_menu()->result();
         $data = array(
             'title' => 'Tambah Data Training',
             'bahan' => $bahan,
-            'menu' => $menu
         );
         $this->load->view('_header', $data);
         $this->load->view('page/addtraining');
@@ -41,9 +47,30 @@ class Home extends CI_Controller {
     }
 
     public function create(){
-        $menu = $this->input->post('id_menu');
+        $menu = $this->input->post('menu');
         $bahan = $this->input->post('id_bahan');
         $this->Mhome->insert_training($menu, $bahan);
+        redirect('home/training');
+    }
+
+    public function edittrain($id){
+        $train = $this->Mhome->get_trainbyid($id);
+        $bahan = $this->Mhome->get_bahan()->result();
+        $data = array(
+            'title' => 'Edit Data Training',
+            'bahan' => $bahan,
+            'train' => $train
+        );
+        $this->load->view('_header', $data);
+        $this->load->view('page/trainedit');
+        $this->load->view('_footer');
+    }
+
+    public function editaction(){
+        $menu = $this->input->post('menu');
+        $idtrain = $this->input->post('id');
+        $bahan = $this->input->post('id_bahan');
+        $this->Mhome->edit_training($menu, $bahan, $idtrain);
         redirect('home/training');
     }
 
@@ -79,13 +106,16 @@ class Home extends CI_Controller {
                 }
                 $hitung = $jmlbahan/$jmlrow;
                 $total = $total+$hitung;
+                // echo $jmlbahan.'/'.$jmlrow.'='.$hitung.', ';
             }
+            // print("<br>");
             $ttotal = 1-$total;
             $data->hasil = $ttotal;
         }
         // foreach($train as $dt){
         //     print("<pre>".print_r($dt,true)."</pre>");
         // }
+
         $hasil = array();
         foreach($train as $key => $row)
         {
@@ -195,38 +225,5 @@ class Home extends CI_Controller {
     public function delbahan($id){
         $this->Mhome->delbahan($id);
         redirect('home/bahan');
-    }
-
-    public function menu(){
-        $menu = $this->Mhome->get_menu()->result();
-        $data = array(
-            'title' => 'Menu Masakan',
-            'menu' => $menu
-        );
-        $this->load->view('_header', $data);
-        $this->load->view('page/menu');
-        $this->load->view('_footer');
-    }
-
-    public function addmenu(){
-        $data = array(
-            'title' => 'Tambah Menu Masakan'
-        );
-        $this->load->view('_header', $data);
-        $this->load->view('page/addmenu');
-        $this->load->view('_footer');
-    }
-
-    public function postmenu(){
-        $data = [
-            'menu' => $this->input->post('menu')
-        ];
-        $this->Mhome->insertmenu($data);
-        redirect('home/menu');
-    }
-
-    public function delmenu($id){
-        $this->Mhome->delmenu($id);
-        redirect('home/menu');
     }
 }

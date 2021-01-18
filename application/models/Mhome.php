@@ -7,13 +7,25 @@ class Mhome extends CI_Model {
         return $this->db->get('bahan');
     }
 
-    public function get_menu(){
-        return $this->db->get('menu');
+    public function get_train(){
+        $train = $this->db->get('train')->result();
+        foreach($train as $data){
+            $trainitem = $this->db->query("SELECT * FROM trainitem JOIN bahan ON trainitem.id_bahan=bahan.id_bahan WHERE id_train = ".$data->id_train)->result();
+            $data->trainitem = $trainitem;
+        }
+        return $train;
+    }
+
+    public function get_trainbyid($id){
+        $train = $this->db->get_where('train', ['id_train' => $id])->row();
+        $trainitem = $this->db->query("SELECT * FROM trainitem JOIN bahan ON trainitem.id_bahan=bahan.id_bahan WHERE id_train = ".$train->id_train)->result();
+        $train->trainitem = $trainitem;
+        return $train;
     }
 
     public function insert_training($menu, $bahan){
         $data = array(
-            'id_menu' => $menu
+            'menu' => $menu
         );
         $this->db->insert('train', $data);
         $id_train = $this->db->insert_id();
@@ -26,19 +38,19 @@ class Mhome extends CI_Model {
         }
     }
 
-    public function get_train(){
-        // $this->db->select('*');
-        // $this->db->from('train');
-        // $this->db->join('trainitem', 'train.id_train = trainitem.id_train');
-        // $query = $this->db->get();
-        // return $q = $query->result_array();
-        $this->db->join('menu', 'menu.id_menu=train.id_menu');
-        $train = $this->db->get('train')->result();
-        foreach($train as $data){
-            $trainitem = $this->db->query("SELECT * FROM trainitem JOIN bahan ON trainitem.id_bahan=bahan.id_bahan WHERE id_train = ".$data->id_train)->result();
-            $data->trainitem = $trainitem;
+    public function edit_training($menu, $bahan, $idtrain){
+        $datamenu = array(
+            'menu' => $menu
+        );
+        $this->db->update('train', $datamenu, ['id_train'=>$idtrain]);
+        $this->db->query("DELETE FROM trainitem WHERE id_train='$idtrain'");
+        foreach($bahan as $dbahan){
+            $arr = array(
+                'id_train' => $idtrain,
+                'id_bahan' => $dbahan
+            );
+            $this->db->insert('trainitem', $arr);
         }
-        return $train;
     }
 
     public function deltrain($id){
@@ -54,15 +66,5 @@ class Mhome extends CI_Model {
         $this->db->where('id_bahan', $id);
         $this->db->delete('bahan');
     }
-
-    public function insertmenu($data){
-        $this->db->insert('menu', $data);
-    }
-
-    public function delmenu($id){
-        $this->db->where('id_menu', $id);
-        $this->db->delete('menu');
-    }
-
 
 }
