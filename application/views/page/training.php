@@ -26,6 +26,7 @@
 										<th>Bahan 4</th>
 										<th>Bahan 5</th>
 										<th>Bahan 6</th>
+										<th>Bahan 7</th>
 										<th>Hasil</th>
 										<th>Aksi</th>
 									</tr>

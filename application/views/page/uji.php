@@ -52,8 +52,6 @@
 											<?php } ?>
 										</select>
 									</div>
-								</div>
-								<div class="col-lg-6">
 									<div class="form-group">
 										<label>Bahan 4</label>
 										<select name="id_bahan[]" class="form-control">
@@ -65,6 +63,8 @@
 											<?php } ?>
 										</select>
 									</div>
+								</div>
+								<div class="col-lg-6">
 									<div class="form-group">
 										<label>Bahan 5</label>
 										<select name="id_bahan[]" class="form-control">
@@ -78,6 +78,17 @@
 									</div>
 									<div class="form-group">
 										<label>Bahan 6</label>
+										<select name="id_bahan[]" class="form-control">
+											<option value="19">( Kosong )</option>
+											<?php 
+                                                foreach($bahan as $data){
+                                            ?>
+											<option value="<?=$data->id_bahan?>"><?=$data->bahan?></option>
+											<?php } ?>
+										</select>
+									</div>
+									<div class="form-group">
+										<label>Bahan 7</label>
 										<select name="id_bahan[]" class="form-control">
 											<option value="19">( Kosong )</option>
 											<?php 

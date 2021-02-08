@@ -84,6 +84,17 @@
 								</select>
 							</div>
 							<div class="form-group">
+								<label>Bahan 7</label>
+								<select name="id_bahan[]" class="form-control">
+									<option value="19">( Kosong )</option>
+									<?php 
+                                        foreach($bahan as $data){
+                                    ?>
+									<option value="<?=$data->id_bahan?>"><?=$data->bahan?></option>
+									<?php } ?>
+								</select>
+							</div>
+							<div class="form-group">
 								<label>Hasil</label>
 								<input type="text" name="menu" class="form-control">
 							</div>

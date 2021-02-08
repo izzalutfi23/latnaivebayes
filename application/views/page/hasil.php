@@ -27,6 +27,7 @@
 									<th>Bahan 4</th>
 									<th>Bahan 5</th>
 									<th>Bahan 6</th>
+									<th>Bahan 7</th>
 									<th>Nilai</th>
 									<th>Hasil</th>
 									</tr>
